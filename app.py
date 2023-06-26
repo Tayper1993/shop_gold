@@ -4,13 +4,13 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('index.html')
 
 
 @app.route('/faq')
-def hello_world():
-    return render_template('index.html')
+def about():
+    return render_template('about.html')
 
 
 # @app.route('/contacts')   TODO Сделать страницу с контактами
