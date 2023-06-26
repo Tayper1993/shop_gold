@@ -12,3 +12,4 @@ alembic
 passlib
 psycopg2-binary
 pip-tools
+gunicorn
