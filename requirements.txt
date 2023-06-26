@@ -25,6 +25,8 @@ flask-sqlalchemy==3.0.5
     # via -r requirements.in
 greenlet==2.0.2
     # via sqlalchemy
+gunicorn==20.1.0
+    # via -r requirements.in
 itsdangerous==2.1.2
     # via
     #   -r requirements.in
