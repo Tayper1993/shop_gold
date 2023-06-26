@@ -1,4 +1,14 @@
 from flask import Flask, render_template
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+Base = declarative_base()
+
+engine = create_engine("postgresql+psycopg2://scot:tiger@localhost:5432/mydatabase")
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(autoflush=False, bind=engine)
+
 
 app = Flask(__name__)
 

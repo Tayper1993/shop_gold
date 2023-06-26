@@ -1,8 +1,6 @@
-from sqlalchemy.orm import declarative_base
+from app import Base
 from sqlalchemy import Column, Integer, DateTime, func, Enum, ForeignKey
 from ..choices.order_status import OrderStatus
-
-Base = declarative_base()
 
 
 class Orders(Base):
