@@ -1,5 +1,9 @@
+from sqlalchemy.orm import declarative_base
+
 from flask import Flask, render_template
 
+
+Base = declarative_base()
 
 app = Flask(__name__)
 
