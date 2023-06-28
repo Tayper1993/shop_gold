@@ -1,27 +1,3 @@
-[project]
-name = 'shop-gold'
-version = '0.1.0'
-description = 'Магазин игровой валюты'
-
-dependencies = [
-    'blinker',
-    'click',
-    'Flask',
-    'itsdangerous',
-    'Jinja2',
-    'MarkupSafe',
-    'Werkzeug',
-    'Flask-SQLAlchemy',
-    'pip-tools',
-    'SQLAlchemy',
-    'alembic',
-    'passlib',
-    'psycopg2-binary',
-    'pip-tools',
-    'gunicorn',
-    'pre-commit',
-]
-
 [tool.isort]
 profile = 'black'
 line_length = 120
@@ -41,18 +17,3 @@ skip-string-normalization = true
 
 [tool.flake8]
 max-line-length = 120
-
-[tool.poetry]
-name = "test-package"
-version = "0.1.0"
-description = ""
-authors = ["Константин <polyakov_ks@smart-transport.ru>"]
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
