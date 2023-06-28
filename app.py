@@ -1,11 +1,14 @@
+from flask import Flask, render_template
+from flask_jwt_extended import JWTManager
 from sqlalchemy.orm import declarative_base
 
-from flask import Flask, render_template
 
+app = Flask(__name__)
 
 Base = declarative_base()
 
-app = Flask(__name__)
+
+jwt = JWTManager(app)
 
 
 @app.route('/')

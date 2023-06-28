@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+from flask_jwt_extended import create_access_token
 from sqlalchemy import create_engine, DateTime, ForeignKey, func, Integer, String
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column
 
@@ -18,6 +21,11 @@ class Users(Base):
     password_hash: Mapped[str] = mapped_column(String(120))
     time_created: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+
+    def get_token(self, expire_time=24):
+        expire_delta = timedelta(expire_time)
+        token = create_access_token(identity=self.id, expires_delta=expire_delta)
+        return token
 
 
 class Products(Base):
