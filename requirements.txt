@@ -6,6 +6,8 @@
 #
 alembic==1.11.1
     # via -r requirements.in
+bcrypt==4.0.1
+    # via -r requirements.in
 blinker==1.6.2
     # via
     #   -r requirements.in

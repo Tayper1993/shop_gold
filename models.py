@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from flask_jwt_extended import create_access_token
+from passlib.hash import bcrypt
 from sqlalchemy import create_engine, DateTime, ForeignKey, func, Integer, String
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column
 
@@ -22,10 +23,24 @@ class Users(Base):
     time_created: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
 
+    def __init__(self, **kwargs):
+        self.username = kwargs.get('username')
+        self.name = kwargs.get('name')
+        self.password_hash = bcrypt.hash(kwargs.get('password_hash'))
+        self.time_created = kwargs.get('time_created')
+        self.email = kwargs.get('email')
+
     def get_token(self, expire_time=24):
         expire_delta = timedelta(expire_time)
         token = create_access_token(identity=self.id, expires_delta=expire_delta)
         return token
+
+    @classmethod
+    def authenticate(cls, email, password):
+        user = cls.query.filter(cls.email == email).one()
+        if not bcrypt.verify(password, user.password):
+            raise Exception('No user with this password')
+        return user
 
 
 class Products(Base):
