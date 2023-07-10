@@ -3,6 +3,7 @@ from datetime import timedelta
 from flask import Flask, render_template, request, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, create_refresh_token
 from sqlalchemy import create_engine
+from sqlalchemy.exc import IntegrityError
 
 from config import Config
 from models import session, Users
@@ -34,8 +35,14 @@ def about():
 def register():
     params = request.json
     user = Users(**params)
-    session.add(user)
-    session.commit()
+
+    try:
+        session.add(user)
+        session.commit()
+    except IntegrityError:
+        session.rollback()
+        return jsonify({'error': 'Ошибка регистрации пользователя'}), 400
+
     access_token = user.get_token()
     return jsonify({'access_token': access_token})
 

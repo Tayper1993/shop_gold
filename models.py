@@ -20,7 +20,7 @@ class Users(Base):
     """
     __tablename__ = 'users'
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True, autoincrement=True)
     username: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     name: Mapped[str | None] = mapped_column(String(80))
     password: Mapped[str] = mapped_column(String(120), nullable=False)
@@ -41,13 +41,12 @@ class Users(Base):
 
     @classmethod
     def authenticate(cls, email, password):
-        try:
-            user = session.query(cls).filter(cls.email == email).first()
-            if not user or not checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
-                raise Unauthorized('Invalid email or password')
-            return user
-        except NoResultFound:
+        user = session.query(cls).filter(cls.email == email).first()
+
+        if not user or not checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             raise Unauthorized('Invalid email or password')
+
+        return user
 
 
 class Products(Base):
