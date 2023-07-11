@@ -6,6 +6,8 @@
 #
 alembic==1.11.1
     # via -r requirements.in
+bcrypt==4.0.1
+    # via -r requirements.in
 blinker==1.6.2
     # via
     #   -r requirements.in
@@ -32,6 +34,10 @@ filelock==3.12.2
     #   -r requirements.in
     #   virtualenv
 flask==2.3.2
+    # via
+    #   -r requirements.in
+    #   flask-jwt-extended
+flask-jwt-extended==4.5.2
     # via -r requirements.in
 greenlet==2.0.2
     # via
@@ -69,6 +75,8 @@ packaging==23.1
     # via
     #   -r requirements.in
     #   build
+passlib==1.7.4
+    # via -r requirements.in
 pip-tools==6.13.0
     # via -r requirements.in
 platformdirs==3.8.0
@@ -79,6 +87,8 @@ pre-commit==3.3.3
     # via -r requirements.in
 psycopg2-binary==2.9.6
     # via -r requirements.in
+pyjwt==2.7.0
+    # via flask-jwt-extended
 pyproject-hooks==1.0.0
     # via
     #   -r requirements.in
@@ -106,6 +116,7 @@ werkzeug==2.3.6
     # via
     #   -r requirements.in
     #   flask
+    #   flask-jwt-extended
 wheel==0.40.0
     # via pip-tools
 
