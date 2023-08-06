@@ -14,6 +14,7 @@ class Users(Base):
     """
     Пользователь
     """
+
     __tablename__ = 'users'
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True, autoincrement=True)

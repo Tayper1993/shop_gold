@@ -1,16 +1,17 @@
 from datetime import timedelta
 
-from flask import Flask, render_template, request, jsonify
-from flask_jwt_extended import JWTManager, jwt_required, create_refresh_token
+from flask import Flask, jsonify, render_template, request
+from flask_jwt_extended import create_refresh_token, jwt_required, JWTManager
 from sqlalchemy.exc import IntegrityError
 
 from config import Config
-from oits.models import session, Users, News
+from oits.models import News, session, Users
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
-app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
 
 client = app.test_client()
 
@@ -50,10 +51,12 @@ def login():
     user = Users.authenticate(**params)
     access_token = user.get_token()
     refresh_token = create_refresh_token(user.id)
-    return jsonify({
-        'access_token': access_token,
-        'refresh_token': refresh_token,
-    })
+    return jsonify(
+        {
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+        }
+    )
 
 
 @app.route('/news', methods=['POST'])
@@ -75,12 +78,14 @@ def get_news():
 
     news_list = []
     for n in news:
-        news_list.append({
-            'id': n.id,
-            'title': n.title,
-            'content': n.content,
-            'author_id': n.author_id,
-        })
+        news_list.append(
+            {
+                'id': n.id,
+                'title': n.title,
+                'content': n.content,
+                'author_id': n.author_id,
+            }
+        )
 
     return jsonify(news_list), 200
 

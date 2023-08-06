@@ -8,6 +8,7 @@ class Orders(Base):
     """
     Заказы
     """
+
     __tablename__ = 'orders'
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
