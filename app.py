@@ -90,7 +90,7 @@ def get_news():
             }
         )
 
-    return jsonify(news_list), 200
+    return render_template('news.html', news_list=news_list)
 
 
 @app.route('/news/<int:news_id>', methods=['DELETE'])

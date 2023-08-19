@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Новости</title>
+    <style>
+      .news-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="news-section">
+      <ul>
+        {% for news in news_list %}
+        <li>
+          <h3>{{ news.title }}</h3>
+          <p>{{ news.content }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
