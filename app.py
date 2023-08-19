@@ -29,20 +29,23 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    params = request.json
-    user = Users(**params)
+    if request.method == 'POST':
+        params = request.json
+        user = Users(**params)
 
-    try:
-        session.add(user)
-        session.commit()
-    except IntegrityError:
-        session.rollback()
-        return jsonify({'error': 'Ошибка регистрации пользователя'}), 400
+        try:
+            session.add(user)
+            session.commit()
+        except IntegrityError:
+            session.rollback()
+            return jsonify({'error': 'Ошибка регистрации пользователя'}), 400
 
-    access_token = user.get_token()
-    return jsonify({'access_token': access_token})
+        access_token = user.get_token()
+        return jsonify({'access_token': access_token})
+    else:
+        return render_template('register.html')
 
 
 @app.route('/login', methods=['POST'])

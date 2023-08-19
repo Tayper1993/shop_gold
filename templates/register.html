@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация пользователя</title>
+</head>
+<body>
+    <h1>Регистрация пользователя</h1>
+
+    <form id="registration-form">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" required><br>
+        <div id="username-error" style="color: red;"></div><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br>
+        <div id="password-error" style="color: red;"></div><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <div id="email-error" style="color: red;"></div><br>
+
+        <input type="button" value="Зарегистрироваться" onclick="registerUser()">
+    </form>
+
+    <script>
+        function registerUser() {
+            var form = document.getElementById("registration-form");
+            var username = form.elements.username.value;
+            var password = form.elements.password.value;
+            var email = form.elements.email.value;
+
+            var data = {
+                "username": username,
+                "password": password,
+                "email": email
+            };
+
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.error) {
+                    // Если есть ошибка, отобразить её сообщение
+                    displayErrorMessage(data.error);
+                } else {
+                    // Если ошибки нет, перенаправить на домашнюю страницу
+                    window.location.href = "/";
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        }
+
+        function displayErrorMessage(message) {
+            var errorDiv = document.createElement("div");
+            errorDiv.style.color = "red";
+            errorDiv.textContent = message;
+
+            document.body.appendChild(errorDiv);
+        }
+    </script>
+</body>
+</html>
