@@ -8,6 +8,7 @@ class Products(Base):
     """
     Товары
     """
+
     __tablename__ = 'products'
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)

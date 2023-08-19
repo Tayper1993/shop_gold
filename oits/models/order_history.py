@@ -8,6 +8,7 @@ class OrderHistory(Base):
     """
     История заказов
     """
+
     __tablename__ = 'order_history'
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)

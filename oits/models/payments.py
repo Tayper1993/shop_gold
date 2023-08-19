@@ -8,6 +8,7 @@ class Payments(Base):
     """
     Платежи
     """
+
     __tablename__ = 'payments'
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
