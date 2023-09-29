@@ -118,5 +118,10 @@ def edit_news(news_id):
         return ({'successfully': 'Новость не найдена'}), 200
 
 
+@app.route('/lexa', methods=['GET'])
+def Lexa():
+    return "lexa"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
