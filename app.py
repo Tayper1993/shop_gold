@@ -24,7 +24,6 @@ def index():
 
 
 @app.route('/about')
-@jwt_required()
 def about():
     return render_template('about.html')
 
@@ -45,7 +44,7 @@ def register():
         access_token = user.get_token()
         return jsonify({'access_token': access_token})
     else:
-        return render_template('register.html')
+        return render_template('sign_in.html')
 
 
 @app.route('/login', methods=['POST'])
