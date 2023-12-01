@@ -51,6 +51,7 @@ def register():
 def login():
     params = request.json
     user = Users.authenticate(**params)
+    print(user)
     access_token = user.get_token()
     refresh_token = create_refresh_token(user.id)
     return jsonify(

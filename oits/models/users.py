@@ -37,8 +37,8 @@ class Users(Base):
         return token
 
     @classmethod
-    def authenticate(cls, email, password):
-        user = session.query(cls).filter(cls.email == email).first()
+    def authenticate(cls, login, password):
+        user = session.query(cls).filter(cls.username == login).first()
 
         if not user or not checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             raise Unauthorized('Invalid email or password')

@@ -2,30 +2,27 @@
 <html lang="ru">
 <head>
     <link rel="stylesheet" type="text/css" href="static/css/sign_in.css">
-  <title>Регистрация</title>
+    <title>Вход</title>
 </head>
 <body>
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="">
-                    <h2>Авторизация</h2>
+                <form id="loginForm" action="">
+                    <h2>Вход</h2>
                     <div class="inputbox">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="text" required>
-                        <label for="">Логин</label>
+                        <input type="text" id="login" name="login" required>
+                        <label for="login">Логин</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" required>
-                        <label for="">Пароль</label>
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Пароль</label>
                     </div>
-                    <div class="forget">
-                        <label for=""><input type="checkbox">Запомнить <a href="#">Забыли Пароль?</a></label>
-                    </div>
-                    <button>Вход</button>
+                    <button type="submit">Войти</button>
                     <div class="register">
-                        <p>У Вас нету аккаунта? <a href="#">Регистрация</a></p>
+                        <p>У Вас нет аккаунта? <a href="#">Регистрация</a></p>
                     </div>
                 </form>
             </div>
@@ -33,5 +30,33 @@
     </section>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('loginForm');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
+
+                const formData = new FormData(form); // Получаем данные из формы
+                const json = {};
+                formData.forEach((value, key) => {json[key] = value});
+                const requestBody = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(json) // Преобразуем данные формы в JSON
+                };
+
+                fetch('/login', requestBody) // Выполняем запрос к API
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Выводим данные в консоль (можно заменить этот шаг на другие действия)
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                    });
+            });
+        });
+    </script>
 </body>
 </html>
