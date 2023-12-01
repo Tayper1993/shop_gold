@@ -12,7 +12,7 @@ class Products(Base):
     __tablename__ = 'products'
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String(80), nullable=False)
     description: Mapped[str | None] = mapped_column(String(254))
     price: Mapped[int] = mapped_column(Integer)
     quantity: Mapped[int | None] = mapped_column(Integer)
