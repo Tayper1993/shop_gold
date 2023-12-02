@@ -1,12 +1,11 @@
 from datetime import timedelta
 
 from flask import Flask, jsonify, render_template, request
-from flask_jwt_extended import create_refresh_token, jwt_required, JWTManager
+from flask_jwt_extended import create_refresh_token, JWTManager
 from sqlalchemy.exc import IntegrityError
 
 from config import Config
 from oits.models import News, session, Users
-
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -28,7 +27,12 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/signin', methods=['GET', 'POST'])
+@app.route('/signin', methods=['GET'])
+def signin():
+    return render_template('sign_in.html')
+
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         params = request.json
@@ -44,7 +48,7 @@ def register():
         access_token = user.get_token()
         return jsonify({'access_token': access_token})
     else:
-        return render_template('sign_in.html')
+        return render_template('register.html')
 
 
 @app.route('/login', methods=['POST'])

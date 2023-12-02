@@ -1,27 +1,105 @@
+{#<!DOCTYPE html>#}
+{#<html lang="ru">#}
+{#<head>#}
+{#    <link rel="stylesheet" type="text/css" href="static/css/register.css">#}
+{#    <title>Регистрация</title>#}
+{#</head>#}
+{#<body>#}
+{#    <section>#}
+{#        <div class="form-box">#}
+{#            <div class="form-value">#}
+{#                <form id="loginForm" action="">#}
+{#                    <h2>Регистрация</h2>#}
+{#                    <div class="inputbox">#}
+{#                        <input type="text" id="login" name="login" required>#}
+{#                        <label for="login">Логин</label>#}
+{#                    </div>#}
+{#                     <div class="inputbox">#}
+{#                        <input type="text" id="login" name="name" required>#}
+{#                        <label for="name">Имя</label>#}
+{#                    </div>#}
+{#                    <div class="inputbox">#}
+{#                        <input type="email" id="login" name="email" required>#}
+{#                        <label for="email">E-mail</label>#}
+{#                    </div>#}
+{#                    <div class="inputbox">#}
+{#                        <input type="password" id="password" name="password" required>#}
+{#                        <label for="password">Пароль</label>#}
+{#                    </div>#}
+{#                    <div class="inputbox">#}
+{#                        <input type="password" id="password" name="password" required>#}
+{#                        <label for="password">Повторите пароль</label>#}
+{#                    </div>#}
+{#                    <button type="submit">Отправить</button>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
+{#    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>#}
+{#    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>#}
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function () {#}
+{#            const form = document.getElementById('loginForm');#}
+{#            form.addEventListener('submit', function (event) {#}
+{#                event.preventDefault(); // Предотвращаем стандартное поведение отправки формы#}
+{##}
+{#                const formData = new FormData(form); // Получаем данные из формы#}
+{#                const json = {};#}
+{#                formData.forEach((value, key) => {json[key] = value});#}
+{#                const requestBody = {#}
+{#                    method: 'POST',#}
+{#                    headers: {#}
+{#                        'Content-Type': 'application/json'#}
+{#                    },#}
+{#                    body: JSON.stringify(json) // Преобразуем данные формы в JSON#}
+{#                };#}
+{##}
+{#                fetch('/register', requestBody) // Выполняем запрос к API#}
+{#                    .then(response => response.json())#}
+{#                    .then(data => {#}
+{#                        console.log(data); // Выводим данные в консоль (можно заменить этот шаг на другие действия)#}
+{#                    })#}
+{#                    .catch(error => {#}
+{#                        console.error('Ошибка:', error);#}
+{#                    });#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="stylesheet" type="text/css" href="static/css/sign_in.css">
-    <title>Вход</title>
+    <link rel="stylesheet" type="text/css" href="static/css/register.css">
+    <title>Регистрация</title>
 </head>
 <body>
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form id="loginForm" action="">
+                <form id="registerForm" action="">
                     <h2>Регистрация</h2>
                     <div class="inputbox">
-                        <input type="text" id="login" name="login" required>
+                        <input type="text" id="login" name="username" required>
                         <label for="login">Логин</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="name" name="name" required>
+                        <label for="name">Имя</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">E-mail</label>
                     </div>
                     <div class="inputbox">
                         <input type="password" id="password" name="password" required>
                         <label for="password">Пароль</label>
                     </div>
-                    <button type="submit">Войти</button>
-                    <div class="register">
-                        <p>У Вас нет аккаунта? <a href="#">Регистрация</a></p>
+                    <div class="inputbox">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <label for="confirmPassword">Повторите пароль</label>
                     </div>
+                    <button type="submit">Отправить</button>
                 </form>
             </div>
         </div>
@@ -30,7 +108,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('loginForm');
+            const form = document.getElementById('registerForm');
             form.addEventListener('submit', function (event) {
                 event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
 
