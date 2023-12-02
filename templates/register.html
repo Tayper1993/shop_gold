@@ -1,70 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Регистрация пользователя</title>
+    <link rel="stylesheet" type="text/css" href="static/css/sign_in.css">
+    <title>Вход</title>
 </head>
 <body>
-    <h1>Регистрация пользователя</h1>
-
-    <form id="registration-form">
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" required><br>
-        <div id="username-error" style="color: red;"></div><br>
-
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required><br>
-        <div id="password-error" style="color: red;"></div><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-        <div id="email-error" style="color: red;"></div><br>
-
-        <input type="button" value="Зарегистрироваться" onclick="registerUser()">
-    </form>
-
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <form id="loginForm" action="">
+                    <h2>Регистрация</h2>
+                    <div class="inputbox">
+                        <input type="text" id="login" name="login" required>
+                        <label for="login">Логин</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Пароль</label>
+                    </div>
+                    <button type="submit">Войти</button>
+                    <div class="register">
+                        <p>У Вас нет аккаунта? <a href="#">Регистрация</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script>
-        function registerUser() {
-            var form = document.getElementById("registration-form");
-            var username = form.elements.username.value;
-            var password = form.elements.password.value;
-            var email = form.elements.email.value;
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('loginForm');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
 
-            var data = {
-                "username": username,
-                "password": password,
-                "email": email
-            };
+                const formData = new FormData(form); // Получаем данные из формы
+                const json = {};
+                formData.forEach((value, key) => {json[key] = value});
+                const requestBody = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(json) // Преобразуем данные формы в JSON
+                };
 
-            fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.error) {
-                    // Если есть ошибка, отобразить её сообщение
-                    displayErrorMessage(data.error);
-                } else {
-                    // Если ошибки нет, перенаправить на домашнюю страницу
-                    window.location.href = "/";
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка:', error);
+                fetch('/register', requestBody) // Выполняем запрос к API
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Выводим данные в консоль (можно заменить этот шаг на другие действия)
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                    });
             });
-        }
-
-        function displayErrorMessage(message) {
-            var errorDiv = document.createElement("div");
-            errorDiv.style.color = "red";
-            errorDiv.textContent = message;
-
-            document.body.appendChild(errorDiv);
-        }
+        });
     </script>
 </body>
 </html>
